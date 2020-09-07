@@ -21,7 +21,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView1" android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="Submission not Successfull"
+        android:text="Submission not Successful"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"

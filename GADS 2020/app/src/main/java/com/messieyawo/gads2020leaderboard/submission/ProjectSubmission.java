@@ -45,7 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProjectSubmission extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ public class ProjectSubmission extends AppCompatActivity {
     String LastName ;
     String Email;
     String projectLink;
-    String URL_SUBMIT_POST= "https://docs.google.com/forms/d/e/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponseqwer";
+    String URL_SUBMIT_POST= "https://docs.google.com/forms/d/e/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse";
 
 
     @Override
@@ -85,13 +87,13 @@ public class ProjectSubmission extends AppCompatActivity {
 
 
                 if(fn.getText().toString().trim().isEmpty()){
-                    Toast.makeText(ProjectSubmission.this,"First Name required",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectSubmission.this, R.string.fn,Toast.LENGTH_SHORT).show();
                 }else if( ln.getText().toString().trim().isEmpty()){
-                    Toast.makeText(ProjectSubmission.this,"Last Name required",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectSubmission.this, R.string.ln,Toast.LENGTH_SHORT).show();
                 }else if(em.getText().toString().trim().isEmpty()){
-                    Toast.makeText(ProjectSubmission.this,"Email address required",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectSubmission.this, R.string.email,Toast.LENGTH_SHORT).show();
                 }else if(link.getText().toString().trim().isEmpty()){
-                    Toast.makeText(ProjectSubmission.this,"Github link required",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectSubmission.this, R.string.github,Toast.LENGTH_SHORT).show();
 
                 }else {
 
@@ -134,7 +136,8 @@ public class ProjectSubmission extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                jsonrequest();
+               // jsonrequest();
+                submissionRequest();
             }
         });
 
@@ -142,89 +145,89 @@ public class ProjectSubmission extends AppCompatActivity {
 
     }
 
-    private void jsonrequest() {
+    private void submissionRequest() {
 
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Processing submission...");
+        progressDialog.setTitle(getString(R.string.process_submission));
         progressDialog.setIcon(R.drawable.upload);
-        progressDialog.setMessage("Please wait a moment ");
+        progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.show();
+        //add to cart favorite
+        String URL_FAVORITE_POST= "https://docs.google.com/forms/d/e/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse";
 
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(ProjectSubmission.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_FAVORITE_POST,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("entry.1877115667",FirstName);
-            jsonBody.put("entry.2006916086",LastName);
-            jsonBody.put("entry.1824927963",Email);
-            jsonBody.put("entry.284483984",projectLink);
 
-            final String requestBody = jsonBody.toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,  URL_SUBMIT_POST, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    LayoutInflater inflater = getLayoutInflater();
 
-                    View view = inflater.inflate(R.layout.my_toast,
-                            (ViewGroup) findViewById(R.id.mylayout));
+                        progressDialog.dismiss();
+                        LayoutInflater inflater = getLayoutInflater();
+                        View view = inflater.inflate(R.layout.my_toast,
+                                (ViewGroup) findViewById(R.id.mylayout));
 
-                    Toast custToast = new Toast(ProjectSubmission.this);
-                    custToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    custToast.setDuration(Toast.LENGTH_LONG);
-                    custToast.setView(view);
-                    custToast.show();
+                        Toast custToast = new Toast(ProjectSubmission.this);
+                        custToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        custToast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
+                        custToast.setDuration(Toast.LENGTH_LONG);
+                        custToast.setView(view);
+                        custToast.show();
 
-                   // Log.i("VOLLEY", response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    //Log.e("VOLLEY", error.toString());
-                    LayoutInflater inflater = getLayoutInflater();
-                    View view = inflater.inflate(R.layout.my_toast_fail,
-                            (ViewGroup) findViewById(R.id.mylayout_fail));
 
-                    Toast custToast = new Toast(ProjectSubmission.this);
-                    custToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    custToast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
-                    custToast.setDuration(Toast.LENGTH_LONG);
-                    custToast.setView(view);
-                    custToast.show();
-                }
-            }) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
 
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return null;
+
+
+
                     }
-                }
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                      //  Toast.makeText(ProjectSubmission.this,"Adding item to favorite failed"+error.toString(),Toast.LENGTH_LONG).show();
+//                        progressDialog.dismiss();
+//                        //Log.e("VOLLEY", error.toString());
+
+
+
+
+                        progressDialog.dismiss();
+                        LayoutInflater inflater = getLayoutInflater();
+                        View view = inflater.inflate(R.layout.my_toast_fail,
+                                (ViewGroup) findViewById(R.id.mylayout_fail));
+
+                        Toast custToast = new Toast(ProjectSubmission.this);
+                        custToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        custToast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
+                        custToast.setDuration(Toast.LENGTH_LONG);
+                        custToast.setView(view);
+                        custToast.show();
+
+
+
+
+
                     }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-            };
-            requestQueue.add(stringRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("entry.1877115667",FirstName);
+                params.put("entry.2006916086",LastName);
+                params.put("entry.1824927963",Email);
+                params.put("entry.284483984",projectLink);
+                // params.put("quantity", String.valueOf(number[0]));
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
+
+
 }

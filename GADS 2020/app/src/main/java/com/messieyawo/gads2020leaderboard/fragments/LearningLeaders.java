@@ -67,7 +67,7 @@ public class LearningLeaders extends Fragment {
     private void jsonrequest() {
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading Top learners  data....");
+        progressDialog.setMessage(getString(R.string.load_data));
         progressDialog.show();
 
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {

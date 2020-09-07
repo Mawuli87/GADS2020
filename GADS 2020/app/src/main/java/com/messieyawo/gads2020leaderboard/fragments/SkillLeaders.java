@@ -57,7 +57,7 @@ public class SkillLeaders extends Fragment {
     private void jsonrequest() {
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading Top Skill IQ  data....");
+        progressDialog.setMessage(getString(R.string.Load_data_skill));
         progressDialog.show();
 
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {

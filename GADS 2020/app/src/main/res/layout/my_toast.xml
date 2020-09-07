@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_width="450dp"
+    android:layout_height="450dp"
     android:layout_gravity="center"
     android:id="@+id/mylayout"
     android:orientation="vertical"
     android:background="@color/colorAccent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_gravity="center"
-        android:layout_height="200dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/mysuccess"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"/>
+        android:layout_marginTop="30dp"
+        android:layout_height="150dp"
+        android:src="@drawable/mysuccess" />
 
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -25,6 +23,7 @@
         android:layout_width="fill_parent"
         android:text="Submission Successful"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:textColor="@android:color/black">
     </TextView>
