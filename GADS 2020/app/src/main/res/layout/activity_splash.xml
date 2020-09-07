@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@drawable/splash"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivLogoSplash"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/ivCHTtext"
+        android:layout_gravity="center"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/skilliq" />
+
+    <TextView
+        android:id="@+id/ivCHTtext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="80dp"
+        android:text="Associate Android Developer Practice Project"
+        android:textColor="@color/md_white_1000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogoWhite"
+        app:layout_constraintVertical_bias="0.012" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivLogoWhite"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/toplearners"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
